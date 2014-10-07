@@ -21,13 +21,17 @@ Stack::~Stack(){					// Reset private data members and reallocate dynamic memory
 }
 
 int Stack::pop(int& value){			// Returns value at the top of stack, removes it, and decrements top by one
-	if (!Stack::is_empty){			// If the stack is not empty
+	if (!(Stack::is_empty())){		// If the stack is not empty
+		if (size() <= (capacity / 2)){
+			resize(false);
+		}
 		--top;
 		return value;
 	}
-	if (size() <= (capacity / 2)){
-		resize(false);
+	else{
+		return 0;
 	}
+	
 }
 
 void Stack::push(int value){				// Increments the top value and and places the given number at that location in the array

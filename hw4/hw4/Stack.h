@@ -1,5 +1,6 @@
 using namespace std;
-
+#ifndef STACK_H
+#define STACK_H
 class Stack{
 public:
 	Stack();
@@ -23,3 +24,4 @@ private:
 	void resize(bool);
 	bool is_empty();
 };
+#endif
