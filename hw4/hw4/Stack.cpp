@@ -1,3 +1,7 @@
+/* Trey Cook
+** CSE 2383-Section 02
+** Homework #4
+** Method implementation for stack class*/
 #include "Stack.h"
 #include <iostream>
 
@@ -21,7 +25,7 @@ Stack::~Stack(){						// Reset private data members and reallocate dynamic memor
 	delete[] stack;
 }
 
-int Stack::pop(int& value){				// Returns value at the top of stack, removes it, and decrements top by one
+bool Stack::pop(int& value){				// Returns value at the top of stack, removes it, and decrements top by one
 	if (!(Stack::is_empty())){			// If the stack is not empty
 		if (size() <= (capacity / 2)){
 			resize(false);
@@ -31,44 +35,62 @@ int Stack::pop(int& value){				// Returns value at the top of stack, removes it,
 		return value;
 	}
 	else{
-		cout << "Stack is empty!\n";
 		return false;
 	}
 	
 }
 
 void Stack::push(int value){			// Increments the top value and and places the given number at that location in the array
-	if ((capacity - top) <= 4){
+	if ((capacity - (size())) <= 4){
 		resize(true);
 	}
 	++top;
 	stack[top] = value;
 }
 
-int Stack::peek(){						// Returns the value at the top of the stack but does not remove it
+const int Stack::peek(){						// Returns the value at the top of the stack but does not remove it
 	if (!(Stack::is_empty())){
 		return stack[top];
 	}
-	else {
-		cout << "Stack is empty!\n";
-		return false;
+	else{
+		cout << "The stack is empty!" << endl;
+		return top;
 	}
 }
 
-int Stack::size(){						// Returns the current size of the array
+const int Stack::size(){						// Returns the current size of the array
 	return (top + 1);
 }
 
 void Stack::resize(bool lessormore){	// Private method that resizes the array when a true boolean variable is passed
 	if (lessormore == true){
+		int *arr = new int[capacity];
+		for (int i = 0; i < capacity; i++){
+			arr[i] = stack[i];
+		}
 		capacity = capacity * 2;
+		stack = new int[capacity];
+		for (int i = 0; i < (capacity/2); i++){
+			stack[i] = arr[i];
+		}
+		delete[] arr;
+		
 	}
 	else{
+		int *arr = new int[capacity];
+		for (int i = 0; i < (capacity/2); i++){
+			arr[i] = stack[i];
+		}
 		capacity = capacity / 2;
+		stack = new int[capacity];
+		for (int i = 0; i < capacity; i++){
+			stack[i] = arr[i];
+		}
+		delete[] arr;
 	}
 }
 
-bool Stack::is_empty()
+bool Stack::is_empty()					// Private method that checks to see if the stack is empty
 {
 	if (top == -1){
 		return true;

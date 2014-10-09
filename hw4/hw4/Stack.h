@@ -1,3 +1,7 @@
+/* Trey Cook 
+** CSE 2383-Section 02
+** Homework #4
+** Class definition for stack class*/
 using namespace std;
 #ifndef STACK_H
 #define STACK_H
@@ -9,13 +13,13 @@ public:
 
 	~Stack();
 
-	int pop(int&);
+	bool pop(int&);
 
 	void push(int);
 
-	int peek();
+	const int peek();
 
-	int size();
+	const int size();
 
 private:
 	int top;
